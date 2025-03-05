@@ -103,12 +103,7 @@
                 <label for="password">Password</label>
                 <input name="spass" type="password" id="password" placeholder="Enter Password" required/>
             </div>
-            <div class="checkbox">
-                <input type="checkbox" id="keep-logged-in">
-                <label for="keep-logged-in">Keep me logged in</label>
-            </div>
             <button name="loginbtn" class="login-btn">LOG IN</button>
-            <div><a href="#">Forgot Password?</a></div>
         </form>
         <?php
             if(isset($_POST['loginbtn'])){
