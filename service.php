@@ -149,43 +149,64 @@
         <img src="images/emblem.png" alt="Emblem" width="300">
     </div>
     <div class="form-container">
-        <h2>Service Request Form</h2> <!-- Add title on top of the form -->
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        
-        <label for="department">Department:</label>
-        <select id="department" name="department" required>
-            <option value="cs">Computer Science</option>
-            <option value="it">Information Technology</option>
-            <option value="cpe">Computer Engineering</option>
-            <option value="ce">Civil Engineering</option>
-            <option value="ee">Electrical Engineering</option>
-            <option value="me">Mechanical Engineering</option>
-            <!-- Add more options as needed -->
-        </select>
-        
-        <label for="prof">Professor:</label>
-        <select id="prof" name="prof" required>
-            <option value="prof1">Professor 1</option>
-            <option value="prof2">Professor 2</option>
-            <option value="prof3">Professor 3</option>
-            <!-- Add more options as needed -->
-        </select>
-        
-        <label for="service">Service:</label>
-        <select id="service" name="service" required>
-            <option value="consultation">Faculty Consultation</option>
-            <option value="grade">Grade Consultation</option>
-            <option value="tutorial">Peer Tutorial</option>
-            <option value="tutorial">Special Assessment</option>
-            <option value="tutorial">Individual Study</option>
-            <option value="tutorial">Group Study</option>
-            <!-- Add more options as needed -->
-        </select>
-        
-        <div class="button-container">
-            <button type="submit" class="button">Submit</button> <!-- Add submit button -->
-        </div>
+        <form action="service.php" method="post">
+            <h2>Service Request Form</h2> <!-- Add title on top of the form -->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="department">Department:</label>
+            <select id="department" name="department" required>
+                <option value="CS">Computer Science</option>
+                <option value="IT">Information Technology</option>
+                <option value="CPE">Computer Engineering</option>
+                <option value="CE">Civil Engineering</option>
+                <option value="EE">Electrical Engineering</option>
+                <option value="ME">Mechanical Engineering</option>
+                <!-- Add more options as needed -->
+            </select>
+            
+            <label for="prof">Professor:</label>
+            <select id="prof" name="prof" required>
+                <option value="Maria Santos">Maria Santos</option>
+                <option value="prof2">Professor 2</option>
+                <option value="prof3">Professor 3</option>
+                <!-- Add more options as needed -->
+            </select>
+            
+            <label for="service">Service:</label>
+            <select id="service" name="service" required>
+                <option value="Faculty Consultation">Faculty Consultation</option>
+                <option value="Grade Consultation">Grade Consultation</option>
+                <option value="Peer Tutorial">Peer Tutorial</option>
+                <option value="Special Assessment">Special Assessment</option>
+                <option value="Individual Study">Individual Study</option>
+                <option value="Group Study">Group Study</option>
+                <!-- Add more options as needed -->
+            </select>
+            
+            <div class="button-container">
+                <button name="submitbtn" type="submit" class="button">Submit</button> <!-- Add submit button -->
+            </div>
+        </form>
+        <?php
+            if(isset($_POST['submitbtn'])){
+                //echo '<script type="text/javascript">alert("Insert Clicked")</script>';
+                
+                $email=$_POST['email'];
+                $department=$_POST['department'];
+                $prof=$_POST['prof'];
+                $service=$_POST['service'];
+                
+                $query_run=mysqli_query($con,$query);
+                
+                if($email=="" || $department=="" || $prof=="" || $service==""){
+                    echo '<script type="text/javascript">alert("Insert values in all fields")</script>';
+                }
+                else{
+                    $query="insert into Service ('Student_StudentNumber`, `Department`, `FacultyName`, `ServiceType`, `CourseCode`, `Timestamp`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]')";
+                }
+            }
+        ?>
     </div>
     <div class="button-container" style="position: absolute; bottom: 10px; left: 160px;">
         <a href="https://feutech-edu-ph.zoom.us/j/99809052576#success" class="button" target="_blank">ZOOM LINK</a>
