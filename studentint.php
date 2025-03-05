@@ -6,115 +6,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Interface</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <title>iCARE Login</title>
     <style>
-        
         body {
-            
-            background-image: url('images/back.png'); /* Set your background image here */
-            background-size: cover; /* Cover the entire viewport */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent the background from repeating */
-            margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('images/tamaraws.png');
+            background-size: cover;
+            background-position: center;
+            background-color: rgb(1, 1, 1);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Ensure the body covers the entire viewport height */
+            height: 100vh;
+            margin: 0;
+            position: relative;
         }
-        .button {
-           
-            width: 135px; /* Reduce width by 50% */
-            height: 35px; /* Reduce height by 50% */
-            margin: 0 10px; /* Space between buttons */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+        .container {
+            background: rgb(252, 252, 252);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .logo {
+            font-size: 32px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .welcome {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left; /* Keep text alignment left */
+            width: 100%; /* Set to 100% to occupy full width */
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            display: block;
+            margin: 0 auto; /* Center the input boxes */
+            width: 90%; /* Adjust width as needed */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .checkbox {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox input {
+            margin-right: 10px;
+        }
+        .login-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            text-decoration: none; /* Added for links */
-            font-weight: bolder;
-            display: flex; /* Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            width: 100%;
+            font-size: 16px;
         }
-        h1 {
-            font-family: 'Bebas Neue', bold; /* Apply the custom font */
-            font-size: 3rem;
-            color: #000000;
-            background: linear-gradient(to right, rgba(255, 217, 0, 0.526), rgba(255, 217, 0, 0.997));
-            padding: 10px; /* Add padding to make the background visible */
-            margin-top: 30px;
-            align-self: flex-end; /* Move h1 to the furthest right side */
-            margin-right: 0px; /* Add some margin to the right */
-            letter-spacing: 0.2em; /* Widen the spacing between letters */
+        .login-btn:hover {
+            background: #FFD700;
         }
-        
-        .library-img {
-            position: absolute;
-            top: 35px;
-            left: 225px;
-        }
-        .library-img:hover {
-            transform: scale(1.1); /* Scale up by 10% */
-        }
-        .homepage-img {
-            position: center;
-            top: 90px;
-            
-        }
-        .homepage-img:hover {
-            transform: scale(1.1); /* Scale up by 10% */
-        }
-        .service-request-img {
-            position: absolute;
-            bottom: 40px;
-            left: 285px;
-        }
-        .service-request-img:hover {
-            transform: scale(1.1); /* Scale up by 10% */
-        }
-        .tutorial-img {
-            position: absolute;
-            bottom: 20px;
-            right: 405px;
-        }
-        .tutorial-img:hover {
-            transform: scale(1.1); /* Scale up by 10% */
-        }
-        .character {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-        }
-       
     </style>
 </head>
 <body>
-    <h1>STUDENT INTERFACE</h1> <!-- Edit this line to change the text -->
-    <div class="library-img">
-        <a href="library.php">
-            <img src="images/library.png" alt="Library" width="300">
-        </a>
+
+    <div class="overlay"></div>
+
+    <div class="container">
+
+        <img class="logo" src="images/icare.png" alt="iCARE Logo" width="250">
+        <form action="student.php" method="post">
+            <div class="input-group">
+                <label for="student-number">Student Number</label>
+                <input name="snum" type="text" id="student-number" placeholder="Enter Student Number" required/>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input name="spass" type="password" id="password" placeholder="Enter Password" required/>
+            </div>
+            <button name="loginbtn" class="login-btn">LOG IN</button>
+        </form>
+        <?php
+            if(isset($_POST['loginbtn'])){
+                //echo '<script type="text/javascript">alert("Insert Clicked")</script>';
+                $snum=$_POST['snum'];
+                $spass=$_POST['spass'];
+                $query="select * from  Student WHERE StudentNumber='$snum' AND Password='$spass'";
+                $query_run=mysqli_query($con,$query);
+                if(mysqli_num_rows($query_run)>0){
+                    //valid
+                    $_SESSION['snum']=$snum;
+                    header('location:studentint.php');
+                }
+                else{
+                    //invalid
+                    echo '<script type="text/javascript">alert("Invalid credentials")</script>';
+                }
+            }
+        ?>
     </div>
-    <div class="homepage-img">
-        <a href="homepage.php">
-            <img src="images/homepage.png" alt="Homepage" width="400">
-        </a>
-    </div>
-    <div class="service-request-img">
-        <a href="service.php">
-            <img src="images/service-request.png" alt="Service Request" width="330">
-        </a>
-    </div>
-    <div class="tutorial-img">
-        <a href="tutorial.php">
-            <img src="images/tutorial.png" alt="Tutorial" width="250">
-        </a>
-    </div>
-    <div class="character">
-        <img src="images/itam.png" alt="Mascot" width="370">
-        
-    </div>
+
 </body>
 </html>
